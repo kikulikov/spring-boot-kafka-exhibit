@@ -1,0 +1,26 @@
+logging:
+  level:
+    root: INFO
+
+spring:
+  kafka:
+    properties:
+      "[bootstrap.servers]": "${spring.embedded.kafka.brokers}"
+      "[schema.registry.url]": "http://localhost:8081"
+
+    admin:
+      client-id: online-orders-admin
+
+    producer:
+      client-id: online-orders-avro-producer
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: io.confluent.kafka.serializers.KafkaAvroSerializer
+
+    consumer:
+      group-id: online-orders-avro-consumer
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: io.confluent.kafka.serializers.KafkaAvroDeserializer
+      auto-offset-reset: earliest
+      # By default, KafkaAvroDeserializerConfig.SPECIFIC_AVRO_READER_CONFIG is set to false,
+      # so your KafkaAvroDeserializer will produce a GenericData by default, and not SpecificData (POJO).
+      properties.specific.avro.reader: true
