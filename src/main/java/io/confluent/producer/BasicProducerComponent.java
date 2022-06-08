@@ -9,11 +9,12 @@ import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
+import static io.confluent.common.Dictionary.ONLINE_ORDERS;
+
 @Component
 public class BasicProducerComponent {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(BasicProducerComponent.class);
-    private static final String ONLINE_ORDERS = "online-orders";
 
     @Autowired
     @SuppressWarnings("unused")

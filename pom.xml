@@ -25,7 +25,7 @@
         <java.version>15</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-        <confluent.version>7.1.1</confluent.version>
+        <cflt.version>7.1.1</cflt.version>
         <faker.version>1.0.2</faker.version>
         <avro.version>1.10.2</avro.version>
         <junit.version>5.8.2</junit.version>
@@ -40,10 +40,15 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-configuration-processor</artifactId>
         </dependency>
-        <!--		<dependency>-->
-        <!--			<groupId>org.apache.kafka</groupId>-->
-        <!--			<artifactId>kafka-streams</artifactId>-->
-        <!--		</dependency>-->
+        <dependency>
+            <groupId>io.confluent</groupId>
+            <artifactId>kafka-streams-avro-serde</artifactId>
+            <version>${cflt.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.kafka</groupId>
+            <artifactId>kafka-streams</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.springframework.kafka</groupId>
             <artifactId>spring-kafka</artifactId>
@@ -61,7 +66,7 @@
         <dependency>
             <groupId>io.confluent</groupId>
             <artifactId>kafka-avro-serializer</artifactId>
-            <version>${confluent.version}</version>
+            <version>${cflt.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -80,6 +85,7 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>2.7.0</version>
                 <configuration>
                     <mainClass>io.confluent.admin.BasicAdminApplication</mainClass>
                 </configuration>

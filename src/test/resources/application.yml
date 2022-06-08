@@ -1,13 +1,14 @@
-logging:
-  level:
-    root: INFO
+logging.level.root: DEBUG
+
+application.topic.online-orders: online-orders
+application.topic.count-and-total: count-and-total
+application.topic.default-num-partitions: 5
+
+spring.kafka.properties.bootstrap.servers: "${spring.embedded.kafka.brokers}"
+spring.kafka.properties.schema.registry.url: http://localhost:8081
 
 spring:
   kafka:
-    properties:
-      "[bootstrap.servers]": "${spring.embedded.kafka.brokers}"
-      "[schema.registry.url]": "http://localhost:8081"
-
     admin:
       client-id: online-orders-admin
 
@@ -24,3 +25,13 @@ spring:
       # By default, KafkaAvroDeserializerConfig.SPECIFIC_AVRO_READER_CONFIG is set to false,
       # so your KafkaAvroDeserializer will produce a GenericData by default, and not SpecificData (POJO).
       properties.specific.avro.reader: true
+
+    streams:
+      application-id: online-orders-processor
+      properties.num.stream.threads: 3
+      properties.commit.interval.ms: 100
+      properties.state.dir: /tmp/kafka-streams
+      properties.state.cleanup.delay.ms: 600000
+      properties.auto-offset-reset: earliest
+      properties.default.key.serde: org.apache.kafka.common.serialization.Serdes$StringSerde
+      properties.default.value.serde: org.apache.kafka.common.serialization.Serdes$StringSerde

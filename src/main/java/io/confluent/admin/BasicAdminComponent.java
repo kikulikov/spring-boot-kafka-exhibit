@@ -4,6 +4,7 @@ import org.apache.kafka.clients.admin.NewTopic;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.core.KafkaAdmin;
 import org.springframework.stereotype.Component;
 
@@ -14,8 +15,15 @@ import java.util.Optional;
 public class BasicAdminComponent {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(BasicAdminComponent.class);
-    static final String ONLINE_ORDERS = "online-orders";
-    static final int NUM_PARTITIONS = 5;
+
+    @Value("${application.topic.online-orders}")
+    private String onlineOrdersTopic;
+
+    @Value("${application.topic.count-and-total}")
+    private String countAndTotalTopic;
+
+    @Value("${application.topic.default-num-partitions}")
+    private int defaultNumPartitions;
 
     @Autowired
     @SuppressWarnings("unused")
@@ -24,10 +32,13 @@ public class BasicAdminComponent {
     @PostConstruct
     @SuppressWarnings("unused")
     public void before() {
-        final var topic = new NewTopic(ONLINE_ORDERS, Optional.of(NUM_PARTITIONS), Optional.empty());
-        LOGGER.info("Creating='{}'", topic);
+        final var onlineOrders = new NewTopic(onlineOrdersTopic, Optional.of(defaultNumPartitions), Optional.empty());
+        LOGGER.info("Creating='{}'", onlineOrders);
 
-        kafkaAdmin.createOrModifyTopics(topic);
+        final var countAndTotal = new NewTopic(countAndTotalTopic, Optional.of(defaultNumPartitions), Optional.empty());
+        LOGGER.info("Creating='{}'", countAndTotal);
+
+        kafkaAdmin.createOrModifyTopics(onlineOrders, countAndTotal);
     }
 }
 

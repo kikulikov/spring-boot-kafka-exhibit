@@ -32,4 +32,13 @@ java -cp target/spring-boot-kafka-exhibit-0.0.1-SNAPSHOT.jar -Dloader.main=io.co
 
 # Kafka Consumer
 java -cp target/spring-boot-kafka-exhibit-0.0.1-SNAPSHOT.jar -Dloader.main=io.confluent.consumer.BasicConsumerApplication org.springframework.boot.loader.PropertiesLauncher
+
+# Kafka Streams
+java -cp target/spring-boot-kafka-exhibit-0.0.1-SNAPSHOT.jar -Dloader.main=io.confluent.streams.CountAndTotalApplication org.springframework.boot.loader.PropertiesLauncher
 ```
+
+## Miscellaneous
+
+* [Sending a Message](https://docs.spring.io/spring-boot/docs/current/reference/html/messaging.html#messaging.kafka.sending)
+* [Receiving a Message](https://docs.spring.io/spring-boot/docs/current/reference/html/messaging.html#messaging.kafka.receiving)
+* [Kafka Streams](https://docs.spring.io/spring-boot/docs/current/reference/html/messaging.html#messaging.kafka.streams)

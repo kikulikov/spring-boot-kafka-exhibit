@@ -8,8 +8,7 @@ import org.springframework.kafka.core.KafkaAdmin;
 import org.springframework.kafka.test.EmbeddedKafkaBroker;
 import org.springframework.kafka.test.context.EmbeddedKafka;
 
-import static io.confluent.admin.BasicAdminComponent.NUM_PARTITIONS;
-import static io.confluent.admin.BasicAdminComponent.ONLINE_ORDERS;
+import static io.confluent.common.Dictionary.*;
 
 @SpringBootTest
 @EmbeddedKafka(brokerProperties = {"auto.create.topics.enable=false"})
@@ -23,8 +22,12 @@ class BasicAdminComponentTest {
 
     @Test
     public void shouldCreateTheTopic() {
-        final var topics = kafkaAdmin.describeTopics(ONLINE_ORDERS);
+        final var topics = kafkaAdmin.describeTopics(ONLINE_ORDERS, COUNT_AND_TOTAL);
+
         Assertions.assertThat(topics).containsKey(ONLINE_ORDERS);
-        Assertions.assertThat(topics.get(ONLINE_ORDERS).partitions()).hasSize(NUM_PARTITIONS);
+        Assertions.assertThat(topics.get(ONLINE_ORDERS).partitions()).hasSize(DEFAULT_NUM_PARTITIONS);
+
+        Assertions.assertThat(topics).containsKey(COUNT_AND_TOTAL);
+        Assertions.assertThat(topics.get(COUNT_AND_TOTAL).partitions()).hasSize(DEFAULT_NUM_PARTITIONS);
     }
 }
