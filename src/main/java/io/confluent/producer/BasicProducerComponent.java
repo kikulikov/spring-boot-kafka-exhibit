@@ -18,7 +18,7 @@ public class BasicProducerComponent {
 
     @Autowired
     @SuppressWarnings("unused")
-    private KafkaTemplate<String, Object> kafkaTemplate;
+    private KafkaTemplate<String, OnlineOrder> kafkaTemplate;
 
     @Autowired
     @SuppressWarnings("unused")

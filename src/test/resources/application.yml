@@ -5,7 +5,7 @@ application.topic.count-and-total: count-and-total
 application.topic.default-num-partitions: 5
 
 spring.kafka.properties.bootstrap.servers: "${spring.embedded.kafka.brokers}"
-spring.kafka.properties.schema.registry.url: http://localhost:8081
+spring.kafka.properties.schema.registry.url: "mock://127.0.0.1:8081"
 
 spring:
   kafka:
