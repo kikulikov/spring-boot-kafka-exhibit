@@ -15,7 +15,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 //@ComponentScan({"io.confluent.utils", "io.confluent.consumer"})
 @SpringBootTest
 @EmbeddedKafka
-class BasicKafkaTest {
+class ProducerConsumerTest {
 
     @Autowired
     private OnlineOrderProducer producer;

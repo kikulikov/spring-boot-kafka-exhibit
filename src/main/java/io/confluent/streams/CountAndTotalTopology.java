@@ -38,8 +38,6 @@ public class CountAndTotalTopology {
         final var configMap = registryConfig.asMap();
         configMap.putAll(authConfig.asMap());
 
-        configMap.forEach((m, n) -> System.out.println(m + "->" + n));
-
         onlineOrderSerde.configure(configMap, false); // false for record values
         countAndTotalSerde.configure(configMap, false); // false for record values
     }
@@ -63,7 +61,7 @@ public class CountAndTotalTopology {
 
         final KTable<String, CountAndTotal> aggregated =
                 onlineOrders
-                        .selectKey((m, n) -> n.getCustomerId() + "-" + n.getProductId())
+                        .selectKey((m, n) -> n.getCustomerId() + "+" + n.getProductId())
                         .repartition()
                         .groupByKey()
                         .aggregate(() -> new CountAndTotal(0, 0), (key, value, agg) -> {
