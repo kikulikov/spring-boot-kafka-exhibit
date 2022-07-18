@@ -3,15 +3,17 @@ package io.confluent.kafka;
 import io.confluent.model.avro.OnlineOrder;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.kafka.test.context.EmbeddedKafka;
+import org.springframework.test.context.ContextConfiguration;
 
 import java.util.concurrent.TimeUnit;
 
 import static io.confluent.common.Dictionary.ONLINE_ORDERS;
 import static org.assertj.core.api.Assertions.assertThat;
 
-//@EnableAutoConfiguration
+// @EnableAutoConfiguration
 //@ComponentScan({"io.confluent.utils", "io.confluent.consumer"})
 @SpringBootTest
 @EmbeddedKafka
@@ -24,7 +26,7 @@ class ProducerConsumerTest {
     private OnlineOrderConsumer consumer;
 
     @Test
-    public void shouldConsumeData() throws InterruptedException {
+    public void produceAndConsume() throws InterruptedException {
 
         final var order = OnlineOrder.newBuilder()
                 .setCustomerId("CUSTOMER-11").setProductId("PRODUCT-22").setQuantity(42).build();
